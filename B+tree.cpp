@@ -4,9 +4,10 @@
 #include <iostream>
 #include <vector>
 #include "btree.h"
-
+#include "bplus.h"
 int main()
 {
+	bplus bp;
 	btree bt;
 	std::string data = "zxmnpoiyqwertyuip07632123";
 	for (auto v : data)
