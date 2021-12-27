@@ -142,10 +142,12 @@
     <ClCompile Include="B+tree.cpp" />
     <ClCompile Include="bplus.cpp" />
     <ClCompile Include="btree.cpp" />
+    <ClCompile Include="node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bplus.h" />
     <ClInclude Include="btree.h" />
+    <ClInclude Include="node.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

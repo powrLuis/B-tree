@@ -26,7 +26,7 @@ void bplus::print()
 
 
 // busca el nodo hoja al cual meter el valor
-bplus::node* bplus::findleaf(int val)
+node* bplus::findleaf(int val)
 {
     // TODO: Agregar aquí el código de implementación.
     return nullptr;
@@ -49,33 +49,3 @@ std::vector<int> bplus::find_range(int min, int max)
 }
 
 
-// inserta un elemento en nodo hoja
-bool bplus::node::insert(int val)
-{
-    if (!is_leaf)
-    {
-        return false;
-    }
-    values.push_back(val);
-    // TODO: se necesita implementar correctamente esta funcion. Debe insertarse los elementos en orden.
-    return true;
-}
-
-bool bplus::node::insert(int val, node* nodo)
-{
-    if (is_leaf)
-    {
-        return false;
-    }
-    values.push_back(val);
-    children.push_back(nodo);
-    //TODO: se necesita implementar correctamente esta funcion.
-    return true;
-}
-
-
-// retorna true si esta lleno y necesita ser dividido
-bool bplus::node::is_overfull()
-{
-    return (children.size() >= orden);
-}
