@@ -5,7 +5,10 @@
 void bplus::insert(int val)
 {
     node* actual = findleaf(val);
-
+    // insertar valor en la hoja
+    // verificar que este lleno
+    // si esta lleno hacer split
+    // repetir hasta llegar a la raiz o no se necesite un split.
     // TODO: Agregar aquí el código de implementación.
 }
 
