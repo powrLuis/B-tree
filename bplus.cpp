@@ -28,6 +28,22 @@ void bplus::print()
 // busca el nodo hoja al cual meter el valor
 node* bplus::findleaf(int val)
 {
+    //Desde aquí modifico el findleaf
+    int i = 0;
+    while (i < n && k > keys[i])
+        i++;
+
+    // If the found key is equal to k, return this node
+    if (keys[i] == k)
+        return this;
+
+    // If the key is not found here and this is a leaf node
+    if (leaf == true)
+        return NULL;
+
+    // Go to the appropriate child
+    return C[i]->search(k);
+
     // TODO: Agregar aquí el código de implementación.
     return nullptr;
 }
