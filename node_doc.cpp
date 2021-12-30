@@ -3,6 +3,13 @@
 #include <string>
 using namespace std;
 
+node_doc::node_doc()
+{
+    orden = -1;
+    father = -1;
+    next = -1;
+}
+
 node_doc::node_doc(int ord)
 {
     static int identifiers = 0;
@@ -26,7 +33,7 @@ bool node_doc::insert(int val)
     else
     {
         int pos = 0;
-        while (values[pos] < val)
+        while (pos < values.size() && values[pos] < val)
         {
             pos++;
         }
@@ -38,13 +45,27 @@ bool node_doc::insert(int val)
 
 bool node_doc::insert(int val, int nodo)
 {
+    int pos = 0;
     if (is_leaf)
     {
         return false;
     }
-    values.push_back(val);
-    children.push_back(nodo);
-    //TODO: se necesita implementar correctamente esta funcion.
+    if (values.size() == 0)
+    {
+        values.push_back(val);
+    }
+    else
+    {
+
+        while (pos < values.size() && values[pos] < val)
+        {
+            pos++;
+        }
+
+        values.insert(values.begin() + pos, val);
+    }
+
+    children.insert(children.begin() + pos + 1, nodo);
     update();
     return true;
 }
@@ -64,8 +85,8 @@ node_doc node_doc::cargar(int id)
     int info_order;
     int size;
     archivo.open(name, ios::_Nocreate|ios::in);
-    archivo >> info_order;
-    node_doc temp(info_order);
+    node_doc temp;
+    archivo >> temp.orden;
     archivo >> temp.id;
     archivo >> temp.is_leaf;
     archivo >> temp.father;
@@ -81,7 +102,7 @@ node_doc node_doc::cargar(int id)
     {
         for (size_t i = 0; i < size+1; i++)
         {
-            char val;
+            int val;
             archivo >> val;
             temp.children.push_back(val);
         }
@@ -154,11 +175,11 @@ void node_doc::update()
     archivo << values.size() << endl;
     for (size_t i = 0; i < values.size(); i++)
     {
-        archivo << values[0]<<endl;
+        archivo << values[i]<<endl;
     }
     for (size_t i = 0; i < children.size(); i++)
     {
-        archivo << children[0] << endl;
+        archivo << children[i] << endl;
     }
     archivo.close();
 }

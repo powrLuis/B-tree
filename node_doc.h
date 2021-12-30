@@ -10,7 +10,8 @@ public:
 	int orden;
 	bool is_leaf{ false };
 	int id = 0;
-	node_doc(int ord=5);
+	node_doc();
+	node_doc(int ord);
 	// inserta un elemento en nodo hoja
 	bool insert(int val);
 	//inserta un valor y un puntero a un nodo

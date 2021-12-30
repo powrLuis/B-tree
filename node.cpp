@@ -16,7 +16,7 @@ bool node::insert(int val)
     else
     {
         int pos = 0;
-        while (values[pos] < val)
+        while (pos < values.size() && values[pos] < val )
         {
             pos++;
         }
@@ -40,7 +40,7 @@ bool node::insert(int val, node* nodo)
     else
     {
 
-        while (values[pos] < val)
+        while (pos < values.size() && values[pos] < val )
         {
             pos++;
         }

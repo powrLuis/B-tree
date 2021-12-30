@@ -42,7 +42,7 @@ node* bplus::findleaf(int val)
     while (!actual->is_leaf)
     {
       int temp = 0;
-      for (int a; a<actual->values.size(); a++){
+      for (int a=0; a<actual->values.size(); a++){
           if (actual->values[a] < val){
             temp++;
           }            
@@ -57,7 +57,7 @@ node* bplus::findleaf(int val)
 bool bplus::find(int val)
 {
       node* actual = findleaf(val);
-      for (int a; a<actual->values.size(); a++){
+      for (int a=0; a<actual->values.size(); a++){
         if (actual->values[a] == val){
           return true;
         }
