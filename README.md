@@ -1,3 +1,11 @@
+Árbol B+
+
+Es una forma avanzada de árbol autovalanceado en el que todos los valores están presentes en el nivel de la hoja. en estos árboles un importante concepto a considerar es la indexación multinivel (el índice de índices se crea como se muestra en la figura).
+
+![image](https://user-images.githubusercontent.com/35129284/147752703-d2a33c75-63ad-49ee-a40d-6b9580491d68.png)
+
+
+
 # B-tree
 ## Punto de inicio
 B+tree.cpp
