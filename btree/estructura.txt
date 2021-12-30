@@ -1,0 +1,12 @@
+orden
+id
+is_leaf
+father
+next
+# de valores
+valor 1
+...
+valor x
+hijo 1
+...
+hijo x+1
