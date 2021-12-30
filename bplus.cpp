@@ -69,8 +69,19 @@ bool bplus::find(int val)
 // busqueda por rango
 std::vector<int> bplus::find_range(int min, int max)
 {
-    // TODO: Agregar aquí el código de implementación.
-    return std::vector<int>();
+  std::vector<int> vec = {};
+  node* actual = findleaf(min);
+  int temp = 0;
+  bool mantieneBucle = true;
+    while (mantieneBucle)
+    {
+      for (int a; a<actual->values.size(); a++){
+          if (actual->values[a] < min ){continue;}
+          if(actual->values[a] > max){mantieneBucle = false;          break;}
+          vec.push_back(actual->values[a]);
+      }
+      if (actual->next == nullptr){ break;}     
+      actual = actual->next;
+    }
+    return vec;
 }
-
-
