@@ -38,6 +38,11 @@ void bplus::print()
 // busca el nodo hoja al cual meter el valor
 node* bplus::findleaf(int val)
 {
+    node* actual = root;
+    while (!actual->is_leaf)
+    {
+        actual = actual->children[0];
+    }
     // TODO: Agregar aquí el código de implementación.
     return actual;
 }

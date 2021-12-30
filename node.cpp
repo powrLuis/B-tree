@@ -1,5 +1,5 @@
 #include "node.h"
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 using namespace std;
 
 // inserta un elemento en nodo hoja
@@ -9,39 +9,20 @@ bool node::insert(int val)
     {
         return false;
     }
-    values.push_back(val);
-    // TODO: se necesita implementar correctamente esta funcion. Debe insertarse los elementos en orden.
-    // Program below illustrates the
-// vector::insert() function
-
-
-
-	// initialising the vector
-	vector<int> vec = { 10, 20, 30, 40 };
-	int cont=0;
-	int val1 = 41;
-    for (int x=0; x<vec.size(); x++){
-        if ((val1 == vec[x]) or (val1 < vec[x] )){
-            auto it = vec.insert(vec.begin() + x, val1); 
-            break;
-        }
-        if (val1 > vec[x] and val1 < vec[x+1]){
-            auto it = vec.insert(vec.begin() + x+1, val1);          
-            break;            
-        }
-        if (val1 > vec[vec.size()-1]) {
-            auto it = vec.insert(vec.end() + x, val1); 
-            break; 
-        }
-        cont = cont + 1;
+    if (values.size()==0)
+    {
+        values.push_back(val);
     }
-	int i = 2;
+    else
+    {
+        int pos = 0;
+        while (values[pos] < val)
+        {
+            pos++;
+        }
 
-	cout << "The vector elements are: ";
-	for (auto it = vec.begin(); it != vec.end(); ++it)
-		cout << *it << " ";
-
-
+        values.insert(values.begin() + pos, val);
+    }
     return true;
 }
 
