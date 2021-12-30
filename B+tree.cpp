@@ -22,13 +22,13 @@ int main()
 	{
 		bp.insert(v);
 	}
-	bt.print();
+	//bt.print();
 
 	std::cout << "======busqueda=======" << std::endl;
 	std::string consulta = "5my23";
 	for (auto c : consulta)
 	{
-		if (bt.find(c))
+		if (bp.find(c))
 		{
 			std::cout << "valor " << c << " se encontro" << std::endl;
 		}
@@ -38,7 +38,7 @@ int main()
 		}
 	}
 	std::cout << "==busqueda por rango====" << std::endl;
-	auto r = bt.find_range('l', 't');
+	auto r = bp.find_range('l', 't');
 	std::cout << "valores entre l y t" << std::endl;
 	for (auto v : r)
 	{

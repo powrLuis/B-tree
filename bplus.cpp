@@ -75,7 +75,7 @@ std::vector<int> bplus::find_range(int min, int max)
   bool mantieneBucle = true;
     while (mantieneBucle)
     {
-      for (int a; a<actual->values.size(); a++){
+      for (int a=0; a<actual->values.size(); a++){
           if (actual->values[a] < min ){continue;}
           if(actual->values[a] > max){mantieneBucle = false;          break;}
           vec.push_back(actual->values[a]);

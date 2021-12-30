@@ -55,7 +55,12 @@ node_doc bplus_doc::findleaf(int val)
 // informa si el elemento buscado esta en el arbol
 bool bplus_doc::find(int val)
 {
-    // TODO: Agregar aquí el código de implementación.
+    node_doc actual = findleaf(val);
+    for (int a = 0; a < actual.values.size(); a++) {
+        if (actual.values[a] == val) {
+            return true;
+        }
+    }
     return false;
 }
 
@@ -63,8 +68,21 @@ bool bplus_doc::find(int val)
 // busqueda por rango
 std::vector<int> bplus_doc::find_range(int min, int max)
 {
-    // TODO: Agregar aquí el código de implementación.
-    return std::vector<int>();
+    std::vector<int> vec = {};
+    node_doc actual = findleaf(min);
+    int temp = 0;
+    bool mantieneBucle = true;
+    while (mantieneBucle)
+    {
+        for (int a=0; a < actual.values.size(); a++) {
+            if (actual.values[a] < min) { continue; }
+            if (actual.values[a] > max) { mantieneBucle = false;          break; }
+            vec.push_back(actual.values[a]);
+        }
+        if (actual.next == -1) { break; }
+        actual = node_doc::cargar(actual.next);
+    }
+    return vec;
 }
 
 
