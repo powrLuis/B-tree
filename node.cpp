@@ -28,6 +28,7 @@ bool node::insert(int val)
 
 bool node::insert(int val, node* nodo)
 {
+    int pos = 0;
     if (is_leaf)
     {
         return false;
@@ -38,15 +39,17 @@ bool node::insert(int val, node* nodo)
     }
     else
     {
-        int pos = 0;
+
         while (values[pos] < val)
         {
             pos++;
         }
 
         values.insert(values.begin() + pos, val);
-    }
-    children.push_back(nodo);
+    }  
+
+        children.insert(children.begin() + pos + 1, nodo);
+    
     //TODO: se necesita implementar correctamente esta funcion.
     return true;
 }
