@@ -5,8 +5,8 @@
 // Inserta un elemento al arbol
 void bplus_doc::insert(int val)
 {
-    auto actual = findleaf(val);
-    actual.insert(val);
+    auto actual = findleaf(val);    // nos devuelve un nodo el cual almmacenamos en actual
+    actual.insert(val);             // procedemos a insertar el valor recibido en el nodo correspondiente (de la anterior línea)
     while (actual.is_overfull())
     {
         int temp=actual.split();
