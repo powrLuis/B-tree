@@ -18,7 +18,7 @@ void bplus::insert(int val)
     // verificar que este lleno
     // si esta lleno hacer split
     // repetir hasta llegar a la raiz o no se necesite un split.
-    // TODO: Agregar aquí el código de implementación.
+    // TODO: Agregar aquÃ­ el cÃ³digo de implementaciÃ³n.
 }
 
 bplus::bplus(int ord)
@@ -31,24 +31,24 @@ bplus::bplus(int ord)
 //Imprime el arbol
 void bplus::print()
 {
-    // TODO: Agregar aquí el código de implementación.
+    // TODO: Agregar aquÃ­ el cÃ³digo de implementaciÃ³n.
 }
 
 
 // busca el nodo hoja al cual meter el valor
 node* bplus::findleaf(int val)
 {
-    node* actual = root;
+   node* actual = root;
     while (!actual->is_leaf)
     {
-        actual = actual->children[0];
-        
+      int temp = 0;
+      for (int a; a<actual->values.size(); a++){
+          if (actual->values[a] < val){
+            temp++;
+          }            
+      }       
+      actual = actual->children[temp];
     }
-   
-
-
-
-    // TODO: Agregar aquí el código de implementación.
     return actual;
 }
 
@@ -56,7 +56,12 @@ node* bplus::findleaf(int val)
 // informa si el elemento buscado esta en el arbol
 bool bplus::find(int val)
 {
-    // TODO: Agregar aquí el código de implementación.
+      node* actual = findleaf(val);
+      for (int a; a<actual->values.size(); a++){
+        if (actual->values[a] == val){
+          return true;
+        }
+      }
     return false;
 }
 
@@ -64,7 +69,7 @@ bool bplus::find(int val)
 // busqueda por rango
 std::vector<int> bplus::find_range(int min, int max)
 {
-    // TODO: Agregar aquí el código de implementación.
+    // TODO: Agregar aquÃ­ el cÃ³digo de implementaciÃ³n.
     return std::vector<int>();
 }
 
