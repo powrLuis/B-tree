@@ -29,11 +29,27 @@ bplus::bplus(int ord)
 }
 
 //Imprime el arbol
-void bplus::print()
-{
+//void bplus::print()
+//{
     // TODO: Agregar aquí el código de implementación.
+//}
+void bplus::print(node* ptr, int level)
+{
+	if (ptr)
+	{
+		int i;
+		for (i = ptr->count - 1; i >= 0; i--)
+		{
+			print(ptr->children[i + 1], level + 1);
+			for (size_t k = 0; k < level; k++)
+			{
+				std::cout << "   ";
+			}
+			std::cout << ptr->values[i] << "\n";
+		}
+		print(ptr->children[i + 1], level + 1);
+	}
 }
-
 
 // busca el nodo hoja al cual meter el valor
 node* bplus::findleaf(int val)
