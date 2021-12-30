@@ -10,7 +10,7 @@ public:
 	int orden;
 	bool is_leaf{ false };
 	int id = 0;
-	node_doc(int ord);
+	node_doc(int ord=5);
 	// inserta un elemento en nodo hoja
 	bool insert(int val);
 	//inserta un valor y un puntero a un nodo
@@ -19,7 +19,9 @@ public:
 	bool is_overfull();
 	// divide al nodo, comportamiento depende de si es hoja o no. Regresa puntero al padre.
 	int split();
+	// funcion para guardar el nodo a archivo
+	void update();
 	// funcion para cargar un nodo desde un archivo
-	static node_doc* cargar(int id);
+	static node_doc cargar(int id);
 };
 

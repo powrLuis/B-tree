@@ -5,16 +5,17 @@
 void bplus_doc::insert(int val)
 {
     auto actual = findleaf(val);
-    actual->insert(val);
-    while (actual->is_overfull())
+    actual.insert(val);
+    while (actual.is_overfull())
     {
-        int temp=actual->split();
+        int temp=actual.split();
         actual = node_doc::cargar(temp);
     }
-    if (actual->father==-1)
+    if (actual.father==-1)
     {
-        root = actual->id;
+        root = actual.id;
     }
+    actual.update();
     // insertar valor en la hoja
     // verificar que este lleno
     // si esta lleno hacer split
@@ -29,7 +30,7 @@ bplus_doc::bplus_doc(int ord)
     auto temp = new node_doc(order);
     root = temp->id;
     temp->is_leaf = true;
-
+    temp->update();
 }
 
 //Imprime el arbol
@@ -40,7 +41,7 @@ void bplus_doc::print()
 
 
 // busca el nodo hoja al cual meter el valor
-node_doc* bplus_doc::findleaf(int val)
+node_doc bplus_doc::findleaf(int val)
 {
     ////Desde aquí modifico el findleaf
     //int i = 0;
@@ -58,10 +59,10 @@ node_doc* bplus_doc::findleaf(int val)
     //// Go to the appropriate child
     //return C[i]->search(k);
 
-    node_doc* actual = node_doc::cargar(root);
-    while (!actual->is_leaf)
+    node_doc actual = node_doc::cargar(root);
+    while (!actual.is_leaf)
     {
-        actual = node_doc::cargar(actual->children[0]);
+        actual = node_doc::cargar(actual.children[0]);
     }
     // nodo actual= root;
     // while actual no sea hoja

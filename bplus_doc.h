@@ -17,7 +17,7 @@ public:
 	std::vector<int> find_range(int min, int max);
 private:
 	// busca el nodo hoja al cual meter el valor
-	node_doc* findleaf(int val);
+	node_doc findleaf(int val);
 	// Nodo raiz
 	int root;
 	// orden del arbol

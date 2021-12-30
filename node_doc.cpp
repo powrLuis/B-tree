@@ -10,16 +10,6 @@ node_doc::node_doc(int ord)
     father = -1;
     next = -1;
     id = identifiers++;
-
-    auto name = std::to_string(id);
-    name += ".txt";
-    name = "btree/" + name;
-    fstream archivo;
-    archivo.open(name, ios::_Noreplace);
-    archivo << orden << endl;
-    archivo << id << endl;
-    archivo << is_leaf << endl;
-    archivo.close();
 }
 
 // inserta un elemento en nodo hoja
@@ -42,6 +32,7 @@ bool node_doc::insert(int val)
         }
         values.insert(values.begin() + pos, val);
     }
+    update();
     return true;
 }
 
@@ -54,6 +45,7 @@ bool node_doc::insert(int val, int nodo)
     values.push_back(val);
     children.push_back(nodo);
     //TODO: se necesita implementar correctamente esta funcion.
+    update();
     return true;
 }
 
@@ -64,20 +56,38 @@ bool node_doc::is_overfull()
     return (values.size() >= orden);
 }
 
-node_doc* node_doc::cargar(int id)
+node_doc node_doc::cargar(int id)
 {
     auto name = std::to_string(id);
-    name += ".txt";
-    name = "btree/" + name;
+    name = "btree/" + name + ".txt";
     fstream archivo;
-    archivo.open(name, ios::_Nocreate);
-    //archivo << orden << endl;
-    archivo << id << endl;
-    //archivo << is_leaf << endl;
+    int info_order;
+    int size;
+    archivo.open(name, ios::_Nocreate|ios::in);
+    archivo >> info_order;
+    node_doc temp(info_order);
+    archivo >> temp.id;
+    archivo >> temp.is_leaf;
+    archivo >> temp.father;
+    archivo >> temp.next;
+    archivo >> size;
+    for (size_t i = 0; i < size; i++)
+    {
+        char val;
+        archivo >> val;
+        temp.values.push_back(val);
+    }
+    if (!temp.is_leaf)
+    {
+        for (size_t i = 0; i < size+1; i++)
+        {
+            char val;
+            archivo >> val;
+            temp.children.push_back(val);
+        }
+    }
     archivo.close();
 
-
-    node_doc* temp = new node_doc(5);
     return temp;
 }
 
@@ -87,39 +97,68 @@ node_doc* node_doc::cargar(int id)
 int node_doc::split()
 {
     int center = orden / 2;
-    node_doc* right = new node_doc(orden);
-    right->is_leaf = is_leaf;
+    node_doc right(orden);
+    right.is_leaf = is_leaf;
     if (is_leaf)
     {
         for (size_t i = center; i < values.size(); i++)
         {
-            right->values.push_back(values[i]);
+            right.values.push_back(values[i]);
         }
-        right->next = next;
-        next = right->id;
+        right.next = next;
+        next = right.id;
     }
     else
     {
         for (size_t i = center + 1; i < values.size(); i++)
         {
-            right->values.push_back(values[i]);
+            right.values.push_back(values[i]);
         }
         for (size_t i = center + 1; i < children.size(); i++)
         {
-            right->children.push_back(children[i]);
+            right.children.push_back(children[i]);
         }
         children.resize(center + 1);
     }
-    
+    node_doc dad;
     if (father==-1)
     {
-        auto f = new node_doc(orden);
-        f->children.push_back(id);
-        father = f->id;
+        dad = node_doc(orden);
+        dad.children.push_back(id);
+        father = dad.id;
     }
-    //father->insert(values[center], right);
-    right->father = father;
+    else
+    {
+        dad = cargar(father);
+    }
+    dad.insert(values[center], right.id);
+    right.father = father;
     values.resize(center);
-    
+    update();
+    right.update();
+    dad.update();
     return father;
+}
+
+void node_doc::update()
+{
+    auto name = std::to_string(id);
+    name = "btree/" + name + ".txt";
+    fstream archivo;
+    archivo.open(name, ios::trunc | ios::out);
+    archivo << orden << endl;
+    archivo << id << endl;
+    archivo << is_leaf << endl;
+    archivo << father << endl;
+    archivo << next << endl;
+    archivo << values.size() << endl;
+    for (size_t i = 0; i < values.size(); i++)
+    {
+        archivo << values[0]<<endl;
+    }
+    for (size_t i = 0; i < children.size(); i++)
+    {
+        archivo << children[0] << endl;
+    }
+    archivo.close();
 }
