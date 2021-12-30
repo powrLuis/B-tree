@@ -15,12 +15,12 @@
 
 int main()
 {
-	bplus_doc bp(5);
-	btree bt;
+	bplus_doc bp(5); // instanciamos la clase "bplus_doc" con el orden del árbol 5, recordemos que el valor mínimo es 3
+	btree bt;	 // instanciamos la clase "btree"
 	std::string data = "zxmnpoiyqwertyuip07632123";
 	for (auto v : data)
 	{
-		bp.insert(v);
+		bp.insert(v); //recorremos el string y lo insertamos en el arbol
 	}
 	bp.print();
 
