@@ -11,9 +11,11 @@
 #include <vector>
 #include "btree.h"
 #include "bplus.h"
+#include "bplus_doc.h"
+
 int main()
 {
-	bplus bp(5);
+	bplus_doc bp(5);
 	btree bt;
 	std::string data = "zxmnpoiyqwertyuip07632123";
 	for (auto v : data)

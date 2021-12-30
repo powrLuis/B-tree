@@ -1,27 +1,25 @@
 #pragma once
 #include <vector>
-class node
+class node_doc
 {
 public:
 	std::vector<char> values;
-	std::vector<node*> children;
-	node *next, *father;
+	std::vector<int> children;
+	int next, father;
 	int count{ 0 };
 	int orden;
 	bool is_leaf{ false };
-	node(int ord)
-	{
-		orden = ord;
-		next = nullptr;
-		father = nullptr;
-	}
+	int id = 0;
+	node_doc(int ord);
 	// inserta un elemento en nodo hoja
 	bool insert(int val);
 	//inserta un valor y un puntero a un nodo
-	bool insert(int val, node* nodo);
+	bool insert(int val, int nodo);
 	// retorna true si esta lleno y necesita ser dividido
 	bool is_overfull();
 	// divide al nodo, comportamiento depende de si es hoja o no. Regresa puntero al padre.
-	node* split();
+	int split();
+	// funcion para cargar un nodo desde un archivo
+	static node_doc* cargar(int id);
 };
 

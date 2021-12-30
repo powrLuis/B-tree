@@ -1,51 +1,51 @@
-#include "node.h"
-#include <bits/stdc++.h>
+#include "node_doc.h"
+#include <fstream>
+#include <string>
 using namespace std;
 
+node_doc::node_doc(int ord)
+{
+    static int identifiers = 0;
+    orden = ord;
+    father = -1;
+    next = -1;
+    id = identifiers++;
+
+    auto name = std::to_string(id);
+    name += ".txt";
+    name = "btree/" + name;
+    fstream archivo;
+    archivo.open(name, ios::_Noreplace);
+    archivo << orden << endl;
+    archivo << id << endl;
+    archivo << is_leaf << endl;
+    archivo.close();
+}
+
 // inserta un elemento en nodo hoja
-bool node::insert(int val)
+bool node_doc::insert(int val)
 {
     if (!is_leaf)
     {
         return false;
     }
-    values.push_back(val);
-    // TODO: se necesita implementar correctamente esta funcion. Debe insertarse los elementos en orden.
-    // Program below illustrates the
-// vector::insert() function
-
-
-
-	// initialising the vector
-	vector<int> vec = { 10, 20, 30, 40 };
-	int cont=0;
-	int val1 = 41;
-    for (int x=0; x<vec.size(); x++){
-        if ((val1 == vec[x]) or (val1 < vec[x] )){
-            auto it = vec.insert(vec.begin() + x, val1); 
-            break;
-        }
-        if (val1 > vec[x] and val1 < vec[x+1]){
-            auto it = vec.insert(vec.begin() + x+1, val1);          
-            break;            
-        }
-        if (val1 > vec[vec.size()-1]) {
-            auto it = vec.insert(vec.end() + x, val1); 
-            break; 
-        }
-        cont = cont + 1;
+    if (values.size() == 0)
+    {
+        values.push_back(val);
     }
-	int i = 2;
-
-	cout << "The vector elements are: ";
-	for (auto it = vec.begin(); it != vec.end(); ++it)
-		cout << *it << " ";
-
-
+    else
+    {
+        int pos = 0;
+        while (values[pos] < val)
+        {
+            pos++;
+        }
+        values.insert(values.begin() + pos, val);
+    }
     return true;
 }
 
-bool node::insert(int val, node* nodo)
+bool node_doc::insert(int val, int nodo)
 {
     if (is_leaf)
     {
@@ -59,18 +59,35 @@ bool node::insert(int val, node* nodo)
 
 
 // retorna true si esta lleno y necesita ser dividido
-bool node::is_overfull()
+bool node_doc::is_overfull()
 {
     return (values.size() >= orden);
+}
+
+node_doc* node_doc::cargar(int id)
+{
+    auto name = std::to_string(id);
+    name += ".txt";
+    name = "btree/" + name;
+    fstream archivo;
+    archivo.open(name, ios::_Nocreate);
+    //archivo << orden << endl;
+    archivo << id << endl;
+    //archivo << is_leaf << endl;
+    archivo.close();
+
+
+    node_doc* temp = new node_doc(5);
+    return temp;
 }
 
 
 
 // divide al nodo que no es hoja, el elemento del medio sube arriba. Regresa puntero al padre.
-node* node::split()
+int node_doc::split()
 {
     int center = orden / 2;
-    node* right = new node(orden);
+    node_doc* right = new node_doc(orden);
     right->is_leaf = is_leaf;
     if (is_leaf)
     {
@@ -79,7 +96,7 @@ node* node::split()
             right->values.push_back(values[i]);
         }
         right->next = next;
-        next = right;
+        next = right->id;
     }
     else
     {
@@ -94,12 +111,13 @@ node* node::split()
         children.resize(center + 1);
     }
     
-    if (father==nullptr)
+    if (father==-1)
     {
-        father = new node(orden);
-        father->children.push_back(this);
+        auto f = new node_doc(orden);
+        f->children.push_back(id);
+        father = f->id;
     }
-    father->insert(values[center], right);
+    //father->insert(values[center], right);
     right->father = father;
     values.resize(center);
     
