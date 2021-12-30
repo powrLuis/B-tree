@@ -26,7 +26,7 @@ int main()
 
 	std::cout << "======busqueda=======" << std::endl;
 	std::string consulta = "5my23";
-	for (auto c : consulta)
+	for (auto c : consulta) // buscamos los elementos en consulta y probamos mediante el método "find()" si el valor en busqueda se encuentra o no 
 	{
 		if (bp.find(c))
 		{
