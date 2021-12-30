@@ -1,5 +1,5 @@
 #include "bplus.h"
-
+#include <iostream>
 
 // Inserta un elemento al arbol
 void bplus::insert(int val)
@@ -29,25 +29,28 @@ bplus::bplus(int ord)
 }
 
 //Imprime el arbol
-//void bplus::print()
-//{
-    // TODO: Agregar aquí el código de implementación.
-//}
+void bplus::print()
+{
+    print(root, 0);
+}
+
 void bplus::print(node* ptr, int level)
 {
 	if (ptr)
 	{
 		int i;
-		for (i = ptr->count - 1; i >= 0; i--)
+		for (i = ptr->values.size() - 1; i >= 0; i--)
 		{
-			print(ptr->children[i + 1], level + 1);
+            if(!ptr->is_leaf)
+			    print(ptr->children[i + 1], level + 1);
 			for (size_t k = 0; k < level; k++)
 			{
 				std::cout << "   ";
 			}
 			std::cout << ptr->values[i] << "\n";
 		}
-		print(ptr->children[i + 1], level + 1);
+        if(!ptr->is_leaf)
+		    print(ptr->children[i + 1], level + 1);
 	}
 }
 

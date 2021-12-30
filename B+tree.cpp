@@ -22,7 +22,7 @@ int main()
 	{
 		bp.insert(v);
 	}
-	//bt.print();
+	bp.print();
 
 	std::cout << "======busqueda=======" << std::endl;
 	std::string consulta = "5my23";

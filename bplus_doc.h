@@ -11,6 +11,7 @@ public:
 	void insert(int val);
 	//imprime el arbol
 	void print();
+	void print(int id, int level);
 	// informa si el elemento buscado esta en el arbol
 	bool find(int val);
 	// busqueda por rango

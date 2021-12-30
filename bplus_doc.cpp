@@ -1,4 +1,5 @@
 #include "bplus_doc.h"
+#include <iostream>
 // bplus doc
 
 // Inserta un elemento al arbol
@@ -30,7 +31,28 @@ bplus_doc::bplus_doc(int ord)
 //Imprime el arbol
 void bplus_doc::print()
 {
-    // TODO: Agregar aquí el código de implementación.
+    print(root, 0);
+}
+
+void bplus_doc::print(int id, int level)
+{
+    if (id!=-1)
+    {
+        int i;
+        auto ptr = node_doc::cargar(id);
+        for (i = ptr.values.size() - 1; i >= 0; i--)
+        {
+            if (!ptr.is_leaf)
+                print(ptr.children[i + 1], level + 1);
+            for (size_t k = 0; k < level; k++)
+            {
+                std::cout << "   ";
+            }
+            std::cout << ptr.values[i] << "\n";
+        }
+        if (!ptr.is_leaf)
+            print(ptr.children[i + 1], level + 1);
+    }
 }
 
 
