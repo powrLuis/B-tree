@@ -42,7 +42,17 @@ node* bplus::findleaf(int val)
     while (!actual->is_leaf)
     {
         actual = actual->children[0];
+        
     }
+    return this;
+
+    //correr el arbol b
+    //int i = 0;
+    while (val < actual->father)
+        actual = this;
+
+
+
     // TODO: Agregar aquí el código de implementación.
     return actual;
 }
