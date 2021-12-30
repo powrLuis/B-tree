@@ -32,7 +32,20 @@ bool node::insert(int val, node* nodo)
     {
         return false;
     }
-    values.push_back(val);
+    if (values.size()==0)
+    {
+        values.push_back(val);
+    }
+    else
+    {
+        int pos = 0;
+        while (values[pos] < val)
+        {
+            pos++;
+        }
+
+        values.insert(values.begin() + pos, val);
+    }
     children.push_back(nodo);
     //TODO: se necesita implementar correctamente esta funcion.
     return true;
